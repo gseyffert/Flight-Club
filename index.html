@@ -21,22 +21,25 @@
   <script>
     d3.csv("the-counted-2015.csv", function(err, data) {
       
-      var test = data.slice(0, 10);
+//       var test = data.slice(0, 10);
+      var test = data;
       
       // We are making an API call for every item in test, so we return a 'Promise'
       // for each item in the array. When the response comes back from the API, we assign
       // the result to d.geo and mark that Promise as 'resolved' via resolve(d),
       // where (d) is the item that will be the new item in test
-      test = test.map(function(d) {
+      test.forEach(function(d, i) {
         var search = d.streetaddress + "" + d.city + "," + d.state;
         d.search = search;      
         
         var url = "http://search.mapzen.com/v1/search?text=" + search + "&api_key=mapzen-RK7oUC1";
-        return new Promise(function(resolve, reject) {
-          d3.json(url, function(err, geo) {
-            d.geo = geo;
-            resolve(d);
-          });
+        test[i] = new Promise(function(resolve, reject) {
+          setTimeout(function() {
+            d3.json(url, function(err, geo) {
+              d.geo = geo;
+              resolve(d);
+            });
+          }, 1000 + (i * 2));
         });
       });
       console.log("PROMISES", test);
