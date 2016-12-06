@@ -21,8 +21,7 @@
   <script>
     d3.csv("the-counted-2015.csv", function(err, data) {
       
-//       var test = data.slice(0, 10);
-      var test = data;
+      var test = data.slice(0, 10);
       
       // We are making an API call for every item in test, so we return a 'Promise'
       // for each item in the array. When the response comes back from the API, we assign
@@ -34,12 +33,10 @@
         
         var url = "http://search.mapzen.com/v1/search?text=" + search + "&api_key=mapzen-RK7oUC1";
         test[i] = new Promise(function(resolve, reject) {
-//           setTimeout(function() {
-            d3.json(url, function(err, geo) {
-              d.geo = geo;
-              resolve(d);
-            });
-//           }, 1000 + (i * 2));
+          d3.json(url, function(err, geo) {
+            d.geo = geo;
+            resolve(d);
+          });
         });
       });
       console.log("PROMISES", test);
