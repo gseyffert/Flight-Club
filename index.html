@@ -34,12 +34,12 @@
         
         var url = "http://search.mapzen.com/v1/search?text=" + search + "&api_key=mapzen-RK7oUC1";
         test[i] = new Promise(function(resolve, reject) {
-          setTimeout(function() {
+//           setTimeout(function() {
             d3.json(url, function(err, geo) {
               d.geo = geo;
               resolve(d);
             });
-          }, 1000 + (i * 2));
+//           }, 1000 + (i * 2));
         });
       });
       console.log("PROMISES", test);
